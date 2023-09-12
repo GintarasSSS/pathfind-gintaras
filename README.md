@@ -28,10 +28,31 @@ _Please avoid using libraries to implement the algorithmic side of this challeng
 
 ## Comments Section
 
-<!---
-Please fill in the sections below after you complete the challenge.
---->
+#### Runtime:
+
+1. If both point on same cell - result is `0`
+2. If there is impossible calculate path (grid key `B` for example) - result is `-1`
+3. If path is calculated - result is `a number`
+
+#### Validation (Invalid Argument Exception):
+
+1. Prevent enter incorrect coordinates
+2. Prevent choose non existent grid key. `D` key generates `random` grid with size of `8x8`
+
+#### To Test:
+1. Clone Repository
+2. `cd` to Created Directory
+3. Run `composer install`
+4. Run PHPUnit `./vendor/bin/phpunit tests/`
+5. Run App `php -f pathfind-task.php`
+
+#### Example:
+
+![img.png](img.png)
 
 ### What I'm Pleased With
 
 ### What I Would Have Done With More Time
+
+1. I would put in Docker container
+2. I would, maybe, do path search animation with JS on browser
