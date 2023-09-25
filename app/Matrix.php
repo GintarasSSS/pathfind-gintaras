@@ -2,19 +2,23 @@
 
 namespace App;
 
-class Matrix
+use App\Interfaces\GridInterface;
+use App\Interfaces\MatrixInterface;
+use App\Interfaces\PointInterface;
+
+class Matrix implements MatrixInterface
 {
     /**
      * @var Grid
      */
     private $grid;
 
-    public function __construct(Grid $grid)
+    public function __construct(GridInterface $grid)
     {
         $this->grid = $grid;
     }
 
-    public function display(Point $pointP = null, Point $pointQ = null): void
+    public function display(PointInterface $pointP = null, PointInterface $pointQ = null): void
     {
         $lastColumnIndex = count(current($this->grid->get())) - 1;
 
@@ -39,7 +43,7 @@ class Matrix
         }
     }
 
-    private function printPoints(Point $pointP, Point $pointQ, int $gridX, int $gridY): void
+    private function printPoints(PointInterface $pointP, PointInterface $pointQ, int $gridX, int $gridY): void
     {
         switch (true) {
             case $pointP->get() == $pointQ->get() && $pointP->get() == [$gridX, $gridY]:

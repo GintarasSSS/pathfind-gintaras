@@ -2,7 +2,10 @@
 
 namespace App;
 
-class Point
+use App\Interfaces\GridInterface;
+use App\Interfaces\PointInterface;
+
+class Point implements PointInterface
 {
     /**
      * @var Grid
@@ -18,7 +21,7 @@ class Point
      */
     private $y;
 
-    public function __construct(string $coordinates, Grid $grid)
+    public function __construct(string $coordinates, GridInterface $grid)
     {
         $this->set($coordinates);
         $this->grid = $grid;

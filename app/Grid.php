@@ -2,7 +2,9 @@
 
 namespace App;
 
-class Grid
+use App\Interfaces\GridInterface;
+
+class Grid implements GridInterface
 {
     const RANDOM_GRID_SIZE = 8;
 

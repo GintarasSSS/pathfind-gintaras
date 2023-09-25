@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\unit;
+namespace Tests\Unit;
 
-use App\Grid;
+use App\Interfaces\GridInterface;
 use App\Point;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +12,7 @@ class PointTest extends TestCase
 
     public function setUp(): void
     {
-        $this->gridMock = $this->getMockBuilder(Grid::class)->getMock();
+        $this->gridMock = $this->getMockBuilder(GridInterface::class)->getMock();
     }
 
     /**

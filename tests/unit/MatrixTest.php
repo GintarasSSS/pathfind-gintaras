@@ -2,9 +2,9 @@
 
 namespace Tests\unit;
 
-use App\Grid;
+use App\Interfaces\GridInterface;
+use App\Interfaces\PointInterface;
 use App\Matrix;
-use App\Point;
 use PHPUnit\Framework\TestCase;
 
 class MatrixTest extends TestCase
@@ -13,7 +13,7 @@ class MatrixTest extends TestCase
 
     public function setUp(): void
     {
-        $this->gridMock = $this->getMockBuilder(Grid::class)->getMock();
+        $this->gridMock = $this->getMockBuilder(GridInterface::class)->getMock();
     }
 
     /**
@@ -35,8 +35,8 @@ class MatrixTest extends TestCase
     {
         $this->expectOutputString($expected);
 
-        $pointMockP = $this->getMockBuilder(Point::class)->disableOriginalConstructor()->getMock();
-        $pointMockQ = $this->getMockBuilder(Point::class)->disableOriginalConstructor()->getMock();
+        $pointMockP = $this->getMockBuilder(PointInterface::class)->disableOriginalConstructor()->getMock();
+        $pointMockQ = $this->getMockBuilder(PointInterface::class)->disableOriginalConstructor()->getMock();
 
         $this->gridMock->expects($this->any())->method('get')->willReturn($data);
 

@@ -2,9 +2,20 @@
 
 namespace App;
 
-class PathFind
+use App\Interfaces\GridInterface;
+use App\Interfaces\PathFindInterface;
+use App\Interfaces\PointInterface;
+
+class PathFind implements PathFindInterface
 {
     const STEP = 1;
+
+    const DIRECTIONS = [
+        'up' => ['row' => -self::STEP, 'column' => 0],
+        'down' => ['row' => self::STEP, 'column' => 0],
+        'left' => ['row' => 0, 'column' => -self::STEP],
+        'right' => ['row' => 0, 'column' => self::STEP]
+    ];
 
     /**
      * @var Grid
@@ -21,7 +32,7 @@ class PathFind
      */
     private $pointQ;
 
-    public function __construct(Grid $grid, Point $pointP, Point $pointQ)
+    public function __construct(GridInterface $grid, PointInterface $pointP, PointInterface $pointQ)
     {
         $this->grid = $grid;
         $this->pointP = $pointP;
@@ -53,29 +64,35 @@ class PathFind
                 return $item->distance;
             }
 
-            $this->moveUpDown($item->row - self::STEP, $item->column, $item->distance, $iterator, $visited, $rows);
-            $this->moveUpDown($item->row + self::STEP, $item->column, $item->distance, $iterator, $visited, $rows);
+            foreach (self::DIRECTIONS as $direction) {
+                $row = $item->row + $direction['row'];
+                $column = $item->column + $direction['column'];
 
-            $this->moveLeftRight($item->row, $item->column - self::STEP, $item->distance, $iterator, $visited,
-                $columns);
-            $this->moveLeftRight($item->row, $item->column + self::STEP, $item->distance, $iterator, $visited,
-                $columns);
+                $this->move(
+                    $row,
+                    $column,
+                    $item->distance,
+                    $iterator,
+                    $visited,
+                    $direction['row'] ? $rows : $columns,
+                    $direction['row'] ? $row : $column
+                );
+            }
         }
 
         return $result;
     }
 
-    private function moveUpDown($row, $column, $distance, &$iterator, &$visited, $rows): void
-    {
-        if ($row >= 0 && $row < $rows && !$visited[$row][$column]) {
-            $iterator[] = new QueueItem($row, $column, $distance + self::STEP);
-            $visited[$row][$column] = true;
-        }
-    }
-
-    private function moveLeftRight($row, $column, $distance, &$iterator, &$visited, $columns): void
-    {
-        if ($column >= 0 && $column < $columns && !$visited[$row][$column]) {
+    private function move(
+        int $row,
+        int $column,
+        int $distance,
+        array &$iterator,
+        array &$visited,
+        int $total,
+        int $valuation
+    ): void {
+        if ($valuation >= 0 && $valuation < $total && !$visited[$row][$column]) {
             $iterator[] = new QueueItem($row, $column, $distance + self::STEP);
             $visited[$row][$column] = true;
         }
