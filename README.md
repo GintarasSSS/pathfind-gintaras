@@ -1,4 +1,4 @@
-# Oxbury Pathfind
+# Matrix Pathfind
 
 Imagine representing a grid-shaped game map as a 2-dimensional array. Each value of this array is
 boolean `true` or `false` representing whether that part of the map is passable (a floor) or blocked
